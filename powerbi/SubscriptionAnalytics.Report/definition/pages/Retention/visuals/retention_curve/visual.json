@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "retention_curve",
+  "position": {
+    "x": 20,
+    "y": 510,
+    "z": 11000,
+    "width": 1240,
+    "height": 265,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohorts"
+                    }
+                  },
+                  "Property": "month_index"
+                }
+              },
+              "queryRef": "Cohorts.month_index",
+              "nativeQueryRef": "month_index"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohorts"
+                    }
+                  },
+                  "Property": "cohort_month"
+                }
+              },
+              "queryRef": "Cohorts.cohort_month",
+              "nativeQueryRef": "cohort_month"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cohorts"
+                    }
+                  },
+                  "Property": "Activity Retention"
+                }
+              },
+              "queryRef": "Cohorts.Activity Retention",
+              "nativeQueryRef": "Activity Retention"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Cohorts"
+                  }
+                },
+                "Property": "month_index"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Activity retention by cohort | future values are blank'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

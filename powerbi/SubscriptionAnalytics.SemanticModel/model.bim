@@ -1,0 +1,290 @@
+{
+  "name": "SubscriptionAnalytics",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "sourceQueryCulture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "kind": "m",
+        "expression": "\"C:/path/to/subscription-analyzer/data/processed\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      }
+    ],
+    "tables": [
+      {
+        "name": "Users",
+        "columns": [
+          {
+            "name": "user_id",
+            "dataType": "int64",
+            "sourceColumn": "user_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "signup_date",
+            "dataType": "string",
+            "sourceColumn": "signup_date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "country",
+            "dataType": "string",
+            "sourceColumn": "country",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "channel",
+            "dataType": "string",
+            "sourceColumn": "channel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "signup_month",
+            "dataType": "string",
+            "sourceColumn": "signup_month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "eligible_7d",
+            "dataType": "int64",
+            "sourceColumn": "eligible_7d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "converted_7d",
+            "dataType": "int64",
+            "sourceColumn": "converted_7d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "first_payment_date",
+            "dataType": "string",
+            "sourceColumn": "first_payment_date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "lifetime_cash_cents",
+            "dataType": "int64",
+            "sourceColumn": "lifetime_cash_cents",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "successful_payments",
+            "dataType": "int64",
+            "sourceColumn": "successful_payments",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Users",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"/user_metrics.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"user_id\", Int64.Type}, {\"signup_date\", type text}, {\"country\", type text}, {\"channel\", type text}, {\"signup_month\", type text}, {\"eligible_7d\", Int64.Type}, {\"converted_7d\", Int64.Type}, {\"first_payment_date\", type text}, {\"lifetime_cash_cents\", Int64.Type}, {\"successful_payments\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Registrations",
+            "expression": "COUNTROWS(Users)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Eligible Users",
+            "expression": "CALCULATE(COUNTROWS(Users), Users[eligible_7d] = 1)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Converted Users",
+            "expression": "CALCULATE(SUM(Users[converted_7d]), Users[eligible_7d] = 1)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Conversion 7D",
+            "expression": "DIVIDE([Converted Users], [Eligible Users])",
+            "formatString": "0.0%"
+          }
+        ]
+      },
+      {
+        "name": "Payments",
+        "columns": [
+          {
+            "name": "payment_id",
+            "dataType": "int64",
+            "sourceColumn": "payment_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "subscription_id",
+            "dataType": "int64",
+            "sourceColumn": "subscription_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "payment_date",
+            "dataType": "string",
+            "sourceColumn": "payment_date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "amount_cents",
+            "dataType": "int64",
+            "sourceColumn": "amount_cents",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status",
+            "dataType": "string",
+            "sourceColumn": "status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "user_id",
+            "dataType": "int64",
+            "sourceColumn": "user_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "plan_name",
+            "dataType": "string",
+            "sourceColumn": "plan_name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "payment_month",
+            "dataType": "string",
+            "sourceColumn": "payment_month",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Payments",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"/payment_facts.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"payment_id\", Int64.Type}, {\"subscription_id\", Int64.Type}, {\"payment_date\", type text}, {\"amount_cents\", Int64.Type}, {\"status\", type text}, {\"user_id\", Int64.Type}, {\"plan_name\", type text}, {\"payment_month\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Collected Cash EUR",
+            "expression": "DIVIDE(CALCULATE(SUM(Payments[amount_cents]), Payments[status] = \"succeeded\"), 100)",
+            "formatString": "\u20ac#,0.00"
+          },
+          {
+            "name": "Paying Users",
+            "expression": "CALCULATE(DISTINCTCOUNT(Payments[user_id]), Payments[status] = \"succeeded\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "ARPPU EUR",
+            "expression": "DIVIDE([Collected Cash EUR], [Paying Users])",
+            "formatString": "\u20ac#,0.00"
+          }
+        ]
+      },
+      {
+        "name": "Cohorts",
+        "columns": [
+          {
+            "name": "cohort_month",
+            "dataType": "string",
+            "sourceColumn": "cohort_month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "month_index",
+            "dataType": "int64",
+            "sourceColumn": "month_index",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "cohort_size",
+            "dataType": "int64",
+            "sourceColumn": "cohort_size",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "observed",
+            "dataType": "int64",
+            "sourceColumn": "observed",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "active_users",
+            "dataType": "int64",
+            "sourceColumn": "active_users",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "retention_rate",
+            "dataType": "double",
+            "sourceColumn": "retention_rate",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Cohorts",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"/cohort_retention.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Blanks = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(Blanks, {{\"cohort_month\", type text}, {\"month_index\", Int64.Type}, {\"cohort_size\", Int64.Type}, {\"observed\", Int64.Type}, {\"active_users\", Int64.Type}, {\"retention_rate\", type number}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Activity Retention",
+            "expression": "IF(HASONEVALUE(Cohorts[cohort_month]) && HASONEVALUE(Cohorts[month_index]), DIVIDE(MAX(Cohorts[active_users]), MAX(Cohorts[cohort_size])))",
+            "formatString": "0%"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Users_Payments",
+        "fromTable": "Payments",
+        "fromColumn": "user_id",
+        "toTable": "Users",
+        "toColumn": "user_id",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ]
+  }
+}

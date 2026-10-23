@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "card_2",
+  "position": {
+    "x": 650,
+    "y": 20,
+    "z": 3000,
+    "width": 300,
+    "height": 120,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payments"
+                    }
+                  },
+                  "Property": "Collected Cash EUR"
+                }
+              },
+              "queryRef": "Payments.Collected Cash EUR",
+              "nativeQueryRef": "Collected Cash EUR"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Collected cash | EUR'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

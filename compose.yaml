@@ -1,0 +1,9 @@
+services:
+  analyzer:
+    build: .
+    ports:
+      - "127.0.0.1:3839:3839"
+    init: true
+    volumes:
+      - ./data:/app/data
+      - ./results:/app/results

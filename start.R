@@ -1,0 +1,5 @@
+args<-commandArgs(trailingOnly=FALSE)
+script<-sub('^--file=','',args[grepl('^--file=',args)])
+if(length(script))setwd(dirname(normalizePath(script[1])))
+if(!requireNamespace('shiny',quietly=TRUE))stop('Run Rscript setup.R first.')
+shiny::runApp('.',host=Sys.getenv('APP_HOST','127.0.0.1'),port=as.integer(Sys.getenv('PORT','3839')),launch.browser=interactive())

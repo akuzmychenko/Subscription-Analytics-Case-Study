@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "monthly_cash",
+  "position": {
+    "x": 20,
+    "y": 160,
+    "z": 5000,
+    "width": 780,
+    "height": 290,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payments"
+                    }
+                  },
+                  "Property": "payment_month"
+                }
+              },
+              "queryRef": "Payments.payment_month",
+              "nativeQueryRef": "payment_month"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Payments"
+                    }
+                  },
+                  "Property": "Collected Cash EUR"
+                }
+              },
+              "queryRef": "Payments.Collected Cash EUR",
+              "nativeQueryRef": "Collected Cash EUR"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Payments"
+                  }
+                },
+                "Property": "payment_month"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Collected cash by payment month'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

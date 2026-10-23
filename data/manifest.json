@@ -1,0 +1,41 @@
+{
+  "contract": "subscription-service-source",
+  "contract_version": "2.0",
+  "dataset_id": "seed-20261023-cd60788c5eca",
+  "seed": 20261023,
+  "generator": "legacy-snapshot/1.0",
+  "synthetic": true,
+  "observation_start": "2025-01-01",
+  "observation_end": "2025-12-31",
+  "currency": "EUR",
+  "files": {
+    "users": {
+      "file": "users.csv",
+      "rows": 4890,
+      "sha256": "f3fff879d692abba1e12e65d2128b4924e1a7ef2b53c490c8ccc818f8531c2b4"
+    },
+    "plans": {
+      "file": "plans.csv",
+      "rows": 2,
+      "sha256": "3bd7a816e94ad62f352198193c8e17d558b05bb66e32afebc04bcfc9702083ab"
+    },
+    "subscriptions": {
+      "file": "subscriptions.csv",
+      "rows": 1119,
+      "sha256": "4bd1ec78f8f69becfd62c17b097c175abd4d46ba0db48c033abcdbdca91d0aab"
+    },
+    "payments": {
+      "file": "payments.csv",
+      "rows": 3544,
+      "sha256": "b287091ad1edc1eb076bd56e51b4598f3ade5d0d94406aafa0a424c93c171a52"
+    },
+    "activity_events": {
+      "file": "activity_events.csv",
+      "rows": 22063,
+      "sha256": "d6b3983a75c2d6e898ffe0316ea30834b98359e64496661ad09fee26155b6ac4"
+    }
+  },
+  "user_count": 4890,
+  "min_users": 4890,
+  "max_users": 4890
+}

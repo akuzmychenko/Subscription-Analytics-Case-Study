@@ -1,0 +1,18 @@
+// Table: Users
+Registrations = COUNTROWS(Users)
+
+Eligible Users = CALCULATE(COUNTROWS(Users), Users[eligible_7d] = 1)
+
+Converted Users = CALCULATE(SUM(Users[converted_7d]), Users[eligible_7d] = 1)
+
+Conversion 7D = DIVIDE([Converted Users], [Eligible Users])
+
+// Table: Payments
+Collected Cash EUR = DIVIDE(CALCULATE(SUM(Payments[amount_cents]), Payments[status] = "succeeded"), 100)
+
+Paying Users = CALCULATE(DISTINCTCOUNT(Payments[user_id]), Payments[status] = "succeeded")
+
+ARPPU EUR = DIVIDE([Collected Cash EUR], [Paying Users])
+
+// Table: Cohorts
+Activity Retention = IF(HASONEVALUE(Cohorts[cohort_month]) && HASONEVALUE(Cohorts[month_index]), DIVIDE(MAX(Cohorts[active_users]), MAX(Cohorts[cohort_size])))
