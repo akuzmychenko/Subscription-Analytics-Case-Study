@@ -8,10 +8,45 @@ A reproducible portfolio case study using **SQL, R and Power BI Desktop**, with 
 
 - [Read the full findings and interpretation](results/findings.md).
 - Open `results/report.html` in a browser for the self-contained case study, charts and saved results of all 12 SQL questions.
-- [Download the presentation Power BI project](powerbi/PowerBI-Presentation.zip), extract the entire ZIP, open `SubscriptionAnalytics.pbip` and click **Home → Refresh** once. Its scenario is embedded; no local data-path setup is required.
+- [Download the presentation Power BI project](powerbi/PowerBI-Presentation.zip?raw=true), extract the entire ZIP, open `SubscriptionAnalytics.pbip` and click **Home → Refresh** once. Its scenario is embedded; no local data-path setup is required.
 - Inspect [the twelve SQL questions](sql/03_questions.sql) and [the Desktop/export guide](POWER_BI.md).
 
 The normal GitHub file view shows HTML source. Download the HTML to view it locally. The web analyzer runs through R or Docker; this repository does not claim a published online service.
+
+## Project preview
+
+### Power BI: acquisition, conversion and cash
+
+![Power BI overview showing registrations, mature seven-day conversion, successful payers, monthly cash and acquisition channels](media/powerbi-overview.png)
+
+The original presentation case: **4,890 registrations, 23.2% mature seven-day conversion and EUR 38.32K collected cash**. The 1,119 successful payers include users without full seven-day follow-up; this is a different count from the 1,111 mature conversions. Figures on this page are rounded for display.
+
+### Power BI: calendar-month activity retention
+
+![Power BI retention page showing activity by signup cohort and calendar-month offset](media/powerbi-retention.png)
+
+M0 is 100% by construction. Later columns show content-view activity among the original signup cohort; blank future periods are unobserved. This measures activity retention, not paid subscription renewal.
+
+These two previews are rendered from the Power BI PDF export. [View the complete two-page Power BI report](media/subscription-analytics-report.pdf). The PDF is a static preview; use the PBIP project for interactive filtering.
+
+### Shiny: the analytical workspace
+
+![Shiny analyzer overview with current-scenario KPIs and business findings](media/shiny-overview.png)
+
+The analyzer connects the current dataset to its KPIs, SQL workspace and interpretation. All analyzer previews above and below show the original 4,890-user presentation case.
+
+<details>
+<summary>View live SQL and the import/export workflow</summary>
+
+**Read-only SQL workspace.** The example separates first-payment cash from renewal cash and displays the query result.
+
+![Shiny SQL editor and successful first-payment versus renewal query result](media/shiny-sql.png)
+
+**Scenario import and portable Power BI export.** Import another dataset, inspect its analysis, then download a Power BI project containing that scenario.
+
+![Shiny scenario import and Power BI project download controls](media/shiny-import-export.png)
+
+</details>
 
 ## Business question and scope
 
@@ -163,6 +198,7 @@ subscription-analyzer/
   sql/                  schema, metric views and business questions
   powerbi/              working template and original portable report
   results/              current HTML report, figures and evidence
+  media/                Shiny previews and static Power BI report
 ```
 
 ```mermaid
@@ -187,6 +223,7 @@ Import already runs the analysis; `analysis.R` independently rebuilds saved work
 
 ## Verification
 
-Executed checks cover source hashes and schema, hand-calculated metric boundaries, all 12 queries, read-only SQL, seed reproducibility, import failure recovery, server-side interface actions, HTML generation and Power BI export structure/data consistency. Native Power BI first refresh and visual rendering of the embedded-data export still require Windows Desktop verification. Docker builds and browser layout are not claimed as verified in this preparation environment.
+Executed checks cover source hashes and schema, hand-calculated metric boundaries, all 12 queries, read-only SQL, seed reproducibility, import failure recovery, server-side interface actions, HTML generation and Power BI export structure/data consistency. Run `Rscript check.R` after setup to repeat the data and SQL checks. The project preview includes Shiny screenshots and pages exported from Power BI Desktop for the original presentation case.
 
 [Power BI/export details](POWER_BI.md)
+
