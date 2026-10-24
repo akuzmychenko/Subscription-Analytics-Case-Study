@@ -8,7 +8,7 @@ A reproducible portfolio case study using **SQL, R and Power BI Desktop**, with 
 
 - [Read the full findings and interpretation](results/findings.md).
 - Open `results/report.html` in a browser for the self-contained case study, charts and saved results of all 12 SQL questions.
-- [Download the presentation Power BI project](powerbi/PowerBI-Presentation.zip), extract the entire ZIP, open `SubscriptionAnalytics.pbip` and click **Home → Refresh** once. Its scenario is embedded; no local data-path setup is required.
+- [Download the presentation Power BI project](powerbi/PowerBI-Presentation.zip?raw=true), extract the entire ZIP, open `SubscriptionAnalytics.pbip` and click **Home → Refresh** once. Its scenario is embedded; no local data-path setup is required.
 - Inspect [the twelve SQL questions](sql/03_questions.sql) and [the Desktop/export guide](POWER_BI.md).
 
 The normal GitHub file view shows HTML source. Download the HTML to view it locally. The web analyzer runs through R or Docker; this repository does not claim a published online service.
