@@ -163,8 +163,6 @@ The included `powerbi/SubscriptionAnalytics.pbip` remains a CSV-linked working t
 
 `data/baseline.zip` and `powerbi/PowerBI-Presentation.zip` retain the original presentation case. **Load presentation dataset** restores it in the current session. Download its Power BI package or explicitly save it on the server as needed. On hosted services server files may be temporary; use downloads to retain a scenario.
 
-The importer accepts flat v2.0 source ZIPs and original v1.0 source bundles. The preserved baseline comes from generator v1; the same seed in generator v2 does not reproduce v1 outcomes. Inputting the entire application ZIP or a Power BI export is not supported.
-
 ## Twelve SQL questions
 
 | # | Analytical question | Main technique |
