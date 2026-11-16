@@ -109,30 +109,26 @@ It does not demonstrate causal acquisition effects, incremental revenue, profit,
 
 ## Run the analyzer
 
-With Docker Desktop running, execute from the folder containing `compose.yaml`:
+Run locally with Docker installed and running, or use GitHub Codespaces.
 
-```sh
+Open a terminal in the project's root folder (the folder containing `compose.yaml`) and enter:
+
+```bash
 docker compose up --build
 ```
 
-Open **http://localhost:3839**. Later starts use `docker compose up`; stop with Ctrl+C. The separate generator uses port 3838.
+Wait until the terminal displays `Listening on http://0.0.0.0:3839`.
 
-Without Docker, install R 4.3 or later and run:
+- **Locally:** click [Open the analyzer](http://localhost:3839).
+- **GitHub Codespaces:** open **Ports** next to **Terminal** in the bottom panel, find port **3839**, and click **Open in Browser**. If the port is missing, select **Forward a Port** and enter `3839`.
 
-```sh
-Rscript setup.R
-Rscript start.R
+Keep the terminal running while using the application. Stop with Ctrl+C.
+
+For subsequent starts, enter:
+
+```bash
+docker compose up
 ```
-
-In RStudio, open `SubscriptionAnalyzer.Rproj`, run `source("setup.R")` once, then `source("start.R")`.
-
-| View | Purpose |
-| --- | --- |
-| **Overview** | Current-scenario KPIs, findings, charts and structured interpretation |
-| **SQL** | Twelve editable presets, read-only SQLite execution and CSV download |
-| **Import data** | Validated ZIP import, presentation-case restore, Power BI exports and optional server-side save |
-
-The included case is ready on first launch. Imported scenarios receive their own recalculated findings; the numbers in this root README remain the original presentation case.
 
 ## Import → analyze → download a complete Power BI project
 

@@ -25,20 +25,6 @@ Click **Download CSVs only**, extract the CSVs to the fixed local folder used by
 
 The model reads `user_metrics.csv`, `payment_facts.csv` and `cohort_retention.csv`. `monthly_metrics.csv` is an additional export. The CSV archive has no report template; use the complete project export if you want both.
 
-## Advanced: working report in a fork/branch
-
-The repository's `powerbi/SubscriptionAnalytics.pbip` remains CSV-linked to support ongoing development:
-
-1. Open that PBIP.
-2. In **Transform data → Edit parameters / Manage Parameters**, set `DataFolder` to the absolute path of your local `data/processed` folder.
-3. Apply changes and refresh.
-4. After saving a different working analysis to that folder, refresh again.
-
-Example: `C:/Users/YourName/Documents/subscription-analyzer/data/processed`.
-
-If the analyzer runs in Codespaces, **Save on app server** changes the remote checkout. It does not change files on your PC or commit to GitHub. For immediate local viewing download the complete project. To retain changes in your own branch, review, commit and push them manually; then pull/download them locally if you want to update the CSV-linked working report.
-
-Keep `.pbi` caches and personal Desktop state out of version control. Source definitions and CSVs are the reviewable project inputs.
 
 ## Model and metric boundaries
 
